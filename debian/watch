@@ -1,0 +1,2 @@
+version=3
+http://pypi.python.org/pypi/pytz http://pypi.python.org/packages/source/p/pytz/pytz-(.*).tar.gz#md5=.*

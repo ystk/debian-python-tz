@@ -1,0 +1,22 @@
+--- pytz-2010b/pytz/__init__.py	2010-01-26 08:10:01.000000000 +0100
++++ ../trunk/pytz/__init__.py	2010-01-27 18:34:17.000000000 +0100
+@@ -50,17 +50,12 @@
+     Uses the pkg_resources module if available and no standard file
+     found at the calculated location.
+     """
++    # Patched in Debian, use the system zoninfo from the tzdata package
+     name_parts = name.lstrip('/').split('/')
+     for part in name_parts:
+         if part == os.path.pardir or os.path.sep in part:
+             raise ValueError('Bad path segment: %r' % part)
+-    filename = os.path.join(os.path.dirname(__file__),
+-                            'zoneinfo', *name_parts)
+-    if not os.path.exists(filename) and resource_stream is not None:
+-        # http://bugs.launchpad.net/bugs/383171 - we avoid using this
+-        # unless absolutely necessary to help when a broken version of
+-        # pkg_resources is installed.
+-        return resource_stream(__name__, 'zoneinfo/' + name)
++    filename = os.path.join('/usr/share/zoneinfo', *name_parts)
+     return open(filename, 'rb')
+ 
+ 
