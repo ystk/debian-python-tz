@@ -1,3 +1,52 @@
+python-tz (2012c-1) unstable; urgency=low
+
+  * Team upload.
+  * New upstream release.
+    + Update upstream copyright years.
+  * debian/docs:
+    + Drop PKG-INFO as the useful content is the same as README.txt.
+    + Drop CHANGES.txt as dh_installchangelogs already takes care of it.
+  * debian/control: bump Standards-Version to 3.9.3.
+    + debian/copyright: Update Format URL as DEP5 has been accepted.
+  * Remove debian/clean in favor of ignoring egg-info directory in
+    debian/source/options to avoid diff of files in this directory.
+  * debian/patch/tzdata: add patch information (merge from Ubuntu package).
+
+ -- Arnaud Fontaine <arnau@debian.org>  Wed, 06 Jun 2012 11:10:31 +0900
+
+python-tz (2011h-1) unstable; urgency=low
+
+  * Team upload.
+
+  [ Arnaud Fontaine ]
+  * debian/watch:
+    - fix URL.
+  * debian/patches/tzdata:
+    - update following new upstream release.
+    - Add missing patch for tzfile.py. Thanks to Matt Giuca (Closes: #579704)
+  * Add Python3 support. Thanks to Stefano Rivera (Closes: #641506)
+  * Add debian/clean to get rid of egg-info/* to prevent FTBFS if
+    built twice.
+
+  [ Gediminas Paulauskas ]
+  * Switch to dh_python2 (Closes: #617041):
+  * Switch to source format 3.0 (quilt)
+  * debian/control:
+    - build-depend on python-all (not -dev)
+    - remove Build-Depends on python-central, python-van.pydeb and quilt
+    - add Vcs-Browser
+  * debian/patches/tzdata: also remove import of pkg_resources (Closes: #599047)
+  * debian/copyright: rewrite in dep5 format.
+
+ -- Arnaud Fontaine <arnau@debian.org>  Fri, 21 Oct 2011 14:53:37 +0900
+
+python-tz (2011h-0.1) unstable; urgency=low
+
+  * Non-maintainer upload
+  * New upstream release (Closes: #616650)
+
+ -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 13 Sep 2011 20:04:04 -0400
+
 python-tz (2010b-1) unstable; urgency=low
 
   * New upstream release.

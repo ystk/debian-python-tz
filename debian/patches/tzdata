@@ -1,10 +1,29 @@
---- pytz-2010b/pytz/__init__.py	2010-01-26 08:10:01.000000000 +0100
-+++ ../trunk/pytz/__init__.py	2010-01-27 18:34:17.000000000 +0100
-@@ -50,17 +50,12 @@
+Description: Use system zone information from the tzdata package
+Author: Kurt Roeckx <kurt@roeckx.be>
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=416202
+Forwarded: not-needed
+
+Index: pytz-2011h/pytz/__init__.py
+===================================================================
+--- pytz-2011h.orig/pytz/__init__.py	2011-10-21 15:14:54.048406509 +0900
++++ pytz-2011h/pytz/__init__.py	2011-10-21 15:14:57.232406629 +0900
+@@ -31,11 +31,6 @@
+ except ImportError:
+     from collections import Mapping as DictMixin
+ 
+-try:
+-    from pkg_resources import resource_stream
+-except ImportError:
+-    resource_stream = None
+-
+ from pytz.exceptions import AmbiguousTimeError
+ from pytz.exceptions import InvalidTimeError
+ from pytz.exceptions import NonExistentTimeError
+@@ -87,17 +82,12 @@
      Uses the pkg_resources module if available and no standard file
      found at the calculated location.
      """
-+    # Patched in Debian, use the system zoninfo from the tzdata package
++    # Patched in Debian, use the system zoneinfo from the tzdata package
      name_parts = name.lstrip('/').split('/')
      for part in name_parts:
          if part == os.path.pardir or os.path.sep in part:
@@ -20,3 +39,17 @@
      return open(filename, 'rb')
  
  
+Index: pytz-2011h/pytz/tzfile.py
+===================================================================
+--- pytz-2011h.orig/pytz/tzfile.py	2011-06-27 22:48:49.000000000 +0900
++++ pytz-2011h/pytz/tzfile.py	2011-10-21 15:16:11.116409439 +0900
+@@ -125,7 +125,8 @@
+ if __name__ == '__main__':
+     import os.path
+     from pprint import pprint
+-    base = os.path.join(os.path.dirname(__file__), 'zoneinfo')
++    # Patched in Debian, use the system zoninfo from the tzdata package
++    base = '/usr/share/zoneinfo'
+     tz = build_tzinfo('Australia/Melbourne',
+                       open(os.path.join(base,'Australia','Melbourne'), 'rb'))
+     tz = build_tzinfo('US/Eastern',

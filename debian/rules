@@ -1,11 +1,40 @@
 #!/usr/bin/make -f
 
+PACKAGE=python-tz
+PACKAGE_PYTHON3=python3-tz
+
+PYVERS:=$(shell pyversions -r)
+PY3VERS:=$(shell py3versions -r)
+
 %:
-	dh --with pydeb --with python-central --with quilt $@
+	dh --with python2 --with python3 $@
+
+override_dh_auto_build:
+	dh_auto_build -p$(PACKAGE)
+
+	set -e; \
+	for python in $(PY3VERS); do \
+		$$python setup.py build; \
+	done
+
+override_dh_auto_install:
+	dh_auto_install -p$(PACKAGE) --destdir=$(CURDIR)/debian/$(PACKAGE)
+
+	set -ex; \
+	for python in $(PY3VERS); do \
+		$$python setup.py install --install-layout=deb \
+			--root=$(CURDIR)/debian/$(PACKAGE_PYTHON3); \
+	done
+
+override_dh_clean:
+	dh_clean
+	rm -rf build
 
 override_dh_install:
 	dh_install
+
 	# install our testing package
 	install -D debian/test-pytz debian/python-tz/usr/lib/python-tz/test-pytz.py
+
 	# remove zoneinfo, our patch to pytz makes it use the one from tzdata
-	rm -rf debian/python-tz/usr/lib/python*/*-packages/pytz/zoneinfo
+	rm -rf debian/python*-tz/usr/lib/python*/*-packages/pytz/zoneinfo
