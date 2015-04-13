@@ -35,6 +35,3 @@ override_dh_install:
 
 	# install our testing package
 	install -D debian/test-pytz debian/python-tz/usr/lib/python-tz/test-pytz.py
-
-	# remove zoneinfo, our patch to pytz makes it use the one from tzdata
-	rm -rf debian/python*-tz/usr/lib/python*/*-packages/pytz/zoneinfo

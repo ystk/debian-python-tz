@@ -2,11 +2,12 @@ Description: Use system zone information from the tzdata package
 Author: Kurt Roeckx <kurt@roeckx.be>
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=416202
 Forwarded: not-needed
+Last-Update: 2014-11-12
 
-Index: pytz-2011h/pytz/__init__.py
+Index: python-tz-2012c+dfsg/pytz/__init__.py
 ===================================================================
---- pytz-2011h.orig/pytz/__init__.py	2011-10-21 15:14:54.048406509 +0900
-+++ pytz-2011h/pytz/__init__.py	2011-10-21 15:14:57.232406629 +0900
+--- python-tz-2012c+dfsg.orig/pytz/__init__.py	2012-04-16 06:42:39.000000000 +0200
++++ python-tz-2012c+dfsg/pytz/__init__.py	2014-11-12 22:11:59.000000000 +0100
 @@ -31,11 +31,6 @@
  except ImportError:
      from collections import Mapping as DictMixin
@@ -39,11 +40,11 @@ Index: pytz-2011h/pytz/__init__.py
      return open(filename, 'rb')
  
  
-Index: pytz-2011h/pytz/tzfile.py
+Index: python-tz-2012c+dfsg/pytz/tzfile.py
 ===================================================================
---- pytz-2011h.orig/pytz/tzfile.py	2011-06-27 22:48:49.000000000 +0900
-+++ pytz-2011h/pytz/tzfile.py	2011-10-21 15:16:11.116409439 +0900
-@@ -125,7 +125,8 @@
+--- python-tz-2012c+dfsg.orig/pytz/tzfile.py	2012-04-16 06:42:39.000000000 +0200
++++ python-tz-2012c+dfsg/pytz/tzfile.py	2014-11-12 22:11:59.000000000 +0100
+@@ -127,7 +127,8 @@
  if __name__ == '__main__':
      import os.path
      from pprint import pprint
@@ -53,3 +54,23 @@ Index: pytz-2011h/pytz/tzfile.py
      tz = build_tzinfo('Australia/Melbourne',
                        open(os.path.join(base,'Australia','Melbourne'), 'rb'))
      tz = build_tzinfo('US/Eastern',
+Index: python-tz-2012c+dfsg/setup.py
+===================================================================
+--- python-tz-2012c+dfsg.orig/setup.py	2012-04-16 06:42:39.000000000 +0200
++++ python-tz-2012c+dfsg/setup.py	2014-11-12 22:42:37.000000000 +0100
+@@ -13,15 +13,8 @@
+ memail = 'stuart@stuartbishop.net'
+ packages = ['pytz']
+ resources = ['zone.tab', 'locales/pytz.pot']
+-for dirpath, dirnames, filenames in os.walk(os.path.join('pytz', 'zoneinfo')):
+-    # remove the 'pytz' part of the path
+-    basepath = dirpath.split(os.path.sep, 1)[1]
+-    resources.extend([os.path.join(basepath, filename)
+-                     for filename in filenames])
+ package_data = {'pytz': resources}
+ 
+-assert len(resources) > 10, 'zoneinfo files not found!'
+-
+ setup (
+     name='pytz',
+     version=pytz.VERSION,

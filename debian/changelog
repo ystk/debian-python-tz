@@ -1,3 +1,14 @@
+python-tz (2012c+dfsg-0.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Repack without zoneinfo files. (Closes: #714346)
+    + Add pytz/zoneinfo to Files-Excluded in d/copyright.
+    + Add dversionmangle to d/watch.
+    + Patch setup.py to not install zoneinfo files.
+    + Remove removal of zoneinfo files from d/rules.
+
+ -- Helmut Grohne <helmut@subdivi.de>  Wed, 12 Nov 2014 22:19:38 +0100
+
 python-tz (2012c-1) unstable; urgency=low
 
   * Team upload.
